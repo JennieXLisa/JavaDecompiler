@@ -42,9 +42,9 @@ int Parser::Parse(const char* file){
     rf.read(u2, 2);
     i_temp = bytes2int(u2,2);
     this->cs->c_pool_count = i_temp;
-    this->cs->c_pool = new cp_info[i_temp-1]();
+    this->cs->c_pool = new cp_info[i_temp]();
     
-    for (int i = 0 ; i < this->cs->c_pool_count - 1; i++) {
+    for (int i = 1 ; i < this->cs->c_pool_count; i++) {
         rf.read(u1, 1);
         cp_info* c_pool = &this->cs->c_pool[i];
         switch ((uint8_t)u1[0]) {
@@ -87,11 +87,13 @@ int Parser::Parse(const char* file){
                 c_pool->tag = u1[0];
                 c_pool->info = new char[SZ_Long_info]();
                 rf.read(c_pool->info, SZ_Long_info);
+                i++;
                 break;
             case CONSTANT_Double:
                 c_pool->tag = u1[0];
                 c_pool->info = new char[SZ_Double_info]();
                 rf.read(c_pool->info, SZ_Double_info);
+                i++;
                 break;
             case CONSTANT_NameAndType:
                 c_pool->tag = u1[0];
@@ -265,6 +267,7 @@ int Parser::Parse(const char* file){
         }
     }
     
+    rf.close();
     
     return SUCCESS;
 }
