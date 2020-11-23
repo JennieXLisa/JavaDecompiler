@@ -12,6 +12,6 @@
 
 int main(int argc, const char * argv[]) {
     Parser ps;
-    ps.Parse("/Users/hades/Documents/OOP Reversing/JavaDecompiler/Calculator.class");
+    ps.Parse("/Users/hades/Documents/OOP Reversing/JavaDecompiler/Simple.class");
     return 0;
 }
