@@ -5,10 +5,13 @@
 //  Created by Hades on 22/11/2020.
 //
 
+
 #include <iostream>
+#include "Class.hpp"
+#include "Parser.hpp"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    Parser ps;
+    ps.Parse("/Users/hades/Documents/OOP Reversing/JavaDecompiler/Calculator.class");
     return 0;
 }

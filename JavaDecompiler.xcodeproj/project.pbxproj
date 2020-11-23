@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		28131908256A3ED100C29793 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 28131907256A3ED100C29793 /* main.cpp */; };
+		28131911256A48DA00C29793 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2813190F256A48DA00C29793 /* Class.cpp */; };
+		28131915256A7B7700C29793 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 28131913256A7B7700C29793 /* Parser.cpp */; };
+		28131919256B1C8600C29793 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 28131917256B1C8600C29793 /* utils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,12 @@
 /* Begin PBXFileReference section */
 		28131904256A3ED100C29793 /* JavaDecompiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JavaDecompiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		28131907256A3ED100C29793 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2813190F256A48DA00C29793 /* Class.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Class.cpp; sourceTree = "<group>"; };
+		28131910256A48DA00C29793 /* Class.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Class.hpp; sourceTree = "<group>"; };
+		28131913256A7B7700C29793 /* Parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
+		28131914256A7B7700C29793 /* Parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Parser.hpp; sourceTree = "<group>"; };
+		28131917256B1C8600C29793 /* utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		28131918256B1C8600C29793 /* utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +67,12 @@
 			isa = PBXGroup;
 			children = (
 				28131907256A3ED100C29793 /* main.cpp */,
+				2813190F256A48DA00C29793 /* Class.cpp */,
+				28131910256A48DA00C29793 /* Class.hpp */,
+				28131913256A7B7700C29793 /* Parser.cpp */,
+				28131914256A7B7700C29793 /* Parser.hpp */,
+				28131917256B1C8600C29793 /* utils.cpp */,
+				28131918256B1C8600C29793 /* utils.hpp */,
 			);
 			path = JavaDecompiler;
 			sourceTree = "<group>";
@@ -118,7 +133,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28131911256A48DA00C29793 /* Class.cpp in Sources */,
+				28131915256A7B7700C29793 /* Parser.cpp in Sources */,
 				28131908256A3ED100C29793 /* main.cpp in Sources */,
+				28131919256B1C8600C29793 /* utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
