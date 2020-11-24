@@ -103,11 +103,9 @@
 #define SZ_Package_info 2
 
 
-
 class cp_info {
 public:
-    uint8_t tag;
-    char* info;
+    uint8_t tag;    
     cp_info(){}
 };
 
@@ -146,7 +144,7 @@ public:
     uint16_t minor_version;
     uint16_t major_version;
     uint16_t c_pool_count;
-    cp_info* c_pool;
+    cp_info** c_pool;
     uint16_t access_flag;
     uint16_t this_class;
     uint16_t super_class;
@@ -162,97 +160,97 @@ public:
 };
 
 
-struct CONSTANT_Class_info{
-    uint8_t tag;
+class CONSTANT_Class_info : public cp_info{
+public:
     uint16_t name_index;
 };
 
-struct CONSTANT_Fieldref_info {
-    uint8_t tag;
+class CONSTANT_Fieldref_info : public cp_info{
+public:
     uint16_t class_index;
     uint16_t name_and_type_index;
 };
 
-struct CONSTANT_Methodref_info {
-    uint8_t tag;
+class CONSTANT_Methodref_info : public cp_info{
+public:
     uint16_t class_index;
     uint16_t name_and_type_index;
 };
 
-struct CONSTANT_InterfaceMethodref_info {
-    uint8_t tag;
+class CONSTANT_InterfaceMethodref_info : public cp_info{
+public:
     uint16_t class_index;
     uint16_t name_and_type_index;
 };
 
-struct CONSTANT_String_info {
-    uint8_t tag;
+class CONSTANT_String_info : public cp_info{
+public:
     uint16_t string_index;
 };
 
-struct CONSTANT_Integer_info {
-    uint8_t tag;
+class CONSTANT_Integer_info : public cp_info{
+public:
     uint32_t bytes;
 };
 
-struct CONSTANT_Float_info {
-    uint8_t tag;
+class CONSTANT_Float_info : public cp_info{
+public:
     uint32_t bytes;
 };
 
-struct CONSTANT_Long_info{
-    uint8_t tag;
+class CONSTANT_Long_info : public cp_info{
+public:
     uint32_t high_bytes;
     uint32_t low_bytes;
 };
 
-struct CONSTANT_Double_info {
-    uint8_t tag;
+class CONSTANT_Double_info : public cp_info {
+public:
     uint32_t high_bytes;
     uint32_t low_bytes;
 };
 
-struct CONSTANT_NameAndType_info {
-    uint8_t tag;
+class CONSTANT_NameAndType_info : public cp_info {
+public:
     uint16_t name_index;
     uint16_t descriptor_index;
 };
 
-struct CONSTANT_Utf8_info{
-    uint8_t tag;
+class CONSTANT_Utf8_info : public cp_info{
+public:
     uint16_t length;
-    uint8_t* bytes;
+    char* bytes;
 };
 
-struct CONSTANT_MethodHandle_info {
-    uint8_t tag;
+class CONSTANT_MethodHandle_info : public cp_info{
+public:
     uint8_t reference_kind;
     uint16_t reference_index;
 };
 
-struct CONSTANT_MethodType_info {
-    uint8_t tag;
+class CONSTANT_MethodType_info : public cp_info{
+public:
     uint16_t descriptor_index;
 };
 
-struct CONSTANT_Dynamic_info {
-    uint8_t tag;
+class CONSTANT_Dynamic_info : public cp_info{
+public:
     uint16_t bootstrap_method_attr_index;
     uint16_t name_and_type_index;
 };
 
-struct CONSTANT_InvokeDynamic_info {
-    uint8_t tag;
+class CONSTANT_InvokeDynamic_info : public cp_info {
+public:
     uint16_t bootstrap_method_attr_index;
     uint16_t name_and_type_index;
 };
 
-struct CONSTANT_Module_info {
-    uint8_t tag;
+class CONSTANT_Module_info : public cp_info {
+public:
     uint16_t name_index;
 };
 
-struct CONSTANT_Package_info {
-    uint8_t tag;
+class CONSTANT_Package_info : public cp_info{
+public:
     uint16_t name_index;
 };

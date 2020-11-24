@@ -17,8 +17,7 @@ int Parser::Parse(const char* file){
     char u4[4];
     char u2[2];
     char u1[1];
-    uint16_t tmp;
-    uint16_t sz;
+
     
     if (!rf) {
         return ERROR;
@@ -42,110 +41,193 @@ int Parser::Parse(const char* file){
     rf.read(u2, 2);
     i_temp = bytes2int(u2,2);
     this->cs->c_pool_count = i_temp;
-    this->cs->c_pool = new cp_info[i_temp]();
+    this->cs->c_pool = new cp_info*[i_temp]();
     
     for (int i = 1 ; i < this->cs->c_pool_count; i++) {
         rf.read(u1, 1);
-        cp_info* c_pool = &this->cs->c_pool[i];
         switch ((uint8_t)u1[0]) {
             case CONSTANT_Class:
-                c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Class_info]();
-                rf.read(c_pool->info,SZ_Class_info);
+            {
+                CONSTANT_Class_info* c_pool = new CONSTANT_Class_info();
+                c_pool->tag = (uint8_t)u1[0];
+                rf.read(u2,2);
+                c_pool->name_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Fieldref:
+            {
+                CONSTANT_Fieldref_info* c_pool = new CONSTANT_Fieldref_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Fieldref_info]();
-                rf.read(c_pool->info, SZ_Fieldref_info);
+                rf.read(u2, 2);
+                c_pool->class_index = bytes2int(u2, 2);
+                rf.read(u2, 2);
+                c_pool->name_and_type_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Methodref:
+            {
+                CONSTANT_Methodref_info* c_pool = new CONSTANT_Methodref_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Methodref_info]();
-                rf.read(c_pool->info, SZ_Methodref_info);
+                rf.read(u2, 2);
+                c_pool->class_index = bytes2int(u2, 2);
+                rf.read(u2, 2);
+                c_pool->name_and_type_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_InterfaceMethodref:
+            {
+                CONSTANT_InterfaceMethodref_info* c_pool = new CONSTANT_InterfaceMethodref_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_InterfaceMethodref_info]();
-                rf.read(c_pool->info, SZ_InterfaceMethodref_info);
+                rf.read(u2, 2);
+                c_pool->class_index = bytes2int(u2, 2);
+                rf.read(u2, 2);
+                c_pool->name_and_type_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_String:
+            {
+                CONSTANT_String_info* c_pool = new CONSTANT_String_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_String_info]();
-                rf.read(c_pool->info, SZ_String_info);
+                rf.read(u2, 2);
+                c_pool->string_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Integer:
+            {
+                CONSTANT_Integer_info* c_pool = new CONSTANT_Integer_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Integer_info]();
-                rf.read(c_pool->info, SZ_Integer_info);
+                rf.read(u4, 4);
+                c_pool->bytes = bytes2int(u4, 4);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Float:
+            {
+                CONSTANT_Float_info* c_pool = new CONSTANT_Float_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Float_info]();
-                rf.read(c_pool->info, SZ_Float_info);
+                rf.read(u4, 4);
+                c_pool->bytes = bytes2int(u4, 4);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Long:
+            {
+                CONSTANT_Long_info* c_pool = new CONSTANT_Long_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Long_info]();
-                rf.read(c_pool->info, SZ_Long_info);
+                rf.read(u4, 4);
+                c_pool->high_bytes = bytes2int(u4, 4);
+                rf.read(u4, 4);
+                c_pool->low_bytes = bytes2int(u4, 4);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 i++;
                 break;
+            }
             case CONSTANT_Double:
+            {
+                CONSTANT_Double_info* c_pool = new CONSTANT_Double_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Double_info]();
-                rf.read(c_pool->info, SZ_Double_info);
+                rf.read(u4, 4);
+                c_pool->high_bytes = bytes2int(u4, 4);
+                rf.read(u4, 4);
+                c_pool->low_bytes = bytes2int(u4, 4);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 i++;
                 break;
+            }
             case CONSTANT_NameAndType:
+            {
+                CONSTANT_NameAndType_info* c_pool = new CONSTANT_NameAndType_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_NameAndType_info]();
-                rf.read(c_pool->info, SZ_NameAndType_info);
+                rf.read(u2, 2);
+                c_pool->name_index = bytes2int(u2, 2);
+                rf.read(u2, 2);
+                c_pool->descriptor_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Utf8:
-                // This Structure Need To Handle Differently
+            {
+
+                CONSTANT_Utf8_info* c_pool = new CONSTANT_Utf8_info();
                 c_pool->tag = u1[0];
                 // Read length 
                 rf.read(u2,2);
-                tmp = bytes2int(u2,2);
-                sz = sizeof(uint16_t) + tmp * sizeof(uint8_t);
-                tmp = rf.tellg();
-                rf.seekg(tmp - 2);
-                c_pool->info = new char[sz]();
-                rf.read(c_pool->info, sz);
+                c_pool->length  = bytes2int(u2,2);
+                c_pool->bytes = new char[c_pool->length]();
+                rf.read(c_pool->bytes, c_pool->length);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_MethodHandle:
+            {
+                CONSTANT_MethodHandle_info* c_pool = new CONSTANT_MethodHandle_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_MethodHandle_info]();
-                rf.read(c_pool->info, SZ_MethodHandle_info);
+                rf.read(u1, 1);
+                c_pool->reference_kind = (uint8_t)u1[0];
+                rf.read(u2, 2);
+                c_pool->reference_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_MethodType:
+            {
+                CONSTANT_MethodType_info* c_pool = new CONSTANT_MethodType_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_MethodType_info]();
-                rf.read(c_pool->info, SZ_MethodType_info);
+                rf.read(u2, 2);
+                c_pool->descriptor_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Dynamic:
+            {
+                CONSTANT_Dynamic_info* c_pool = new CONSTANT_Dynamic_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Dynamic_info]();
-                rf.read(c_pool->info, SZ_Dynamic_info);
+                rf.read(u2, 2);
+                c_pool->bootstrap_method_attr_index = bytes2int(u2, 2);
+                rf.read(u2, 2);
+                c_pool->name_and_type_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_InvokeDynamic:
+            {
+                CONSTANT_InvokeDynamic_info* c_pool = new CONSTANT_InvokeDynamic_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_InvokeDynamic_info]();
-                rf.read(c_pool->info, SZ_InvokeDynamic_info);
+                rf.read(u2, 2);
+                c_pool->bootstrap_method_attr_index = bytes2int(u2, 2);
+                rf.read(u2, 2);
+                c_pool->name_and_type_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Module:
+            {
+                CONSTANT_Module_info* c_pool = new CONSTANT_Module_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Module_info]();
-                rf.read(c_pool->info, SZ_Module_info);
+                rf.read(u2, 2);
+                c_pool->name_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             case CONSTANT_Package:
+            {
+                CONSTANT_Package_info* c_pool = new CONSTANT_Package_info();
                 c_pool->tag = u1[0];
-                c_pool->info = new char[SZ_Package_info]();
-                rf.read(c_pool->info, SZ_Package_info);
+                rf.read(u2, 2);
+                c_pool->name_index = bytes2int(u2, 2);
+                this->cs->c_pool[i] = (cp_info*)c_pool;
                 break;
+            }
             default:
                 break;
         }
     }
+
     
     rf.read(u2, 2);
     this->cs->access_flag = bytes2int(u2, 2);
